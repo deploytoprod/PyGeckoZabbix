@@ -4,13 +4,13 @@ This class is responsible for pushing data to Geckoboard
 
 import json
 import requests
-from Helpers import *
-import Configs
+from helpers import *
+import configs
 
 class Geckoboard:
     def __init__(self):
         self.widgetdata = {}
-        self.widgetdata['api_key'] = Configs.geckoboardapikey
+        self.widgetdata['api_key'] = configs.geckoboardapikey
         self.headers = {'content-type': 'application/json'}
 
     def line(self, zhist, widgetdefinitions):

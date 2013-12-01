@@ -1,11 +1,11 @@
-from ZabbixData import *
-from Geckoboard import *
-import Configs
+from zabbixdata import *
+from geckoboard import *
+import configs
 
 
 gb = Geckoboard()
 
-for piece in Configs.pieces:
+for piece in configs.pieces:
     kind = piece['kind']
     if kind == 'Line':
         history = ZabbixData().gethistory(piece)

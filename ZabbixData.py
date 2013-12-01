@@ -5,13 +5,13 @@ This class is responsible for going on Zabbix and get some data
 from pyzabbix import ZabbixAPI
 from datetime import datetime
 import time
-import Configs
+import configs
 
 
 class ZabbixData:
     def __init__(self):
-        self.zapi = ZabbixAPI(Configs.zabbixapiurl)
-        self.zapi.login(Configs.zabbixapilogin, Configs.zabbixapipasswd)
+        self.zapi = ZabbixAPI(configs.zabbixapiurl)
+        self.zapi.login(configs.zabbixapilogin, configs.zabbixapipasswd)
         self.time_till = time.mktime(datetime.now().timetuple())
         self.time_from = self.time_till - 60 * 60 * 2  # 2 hours
 

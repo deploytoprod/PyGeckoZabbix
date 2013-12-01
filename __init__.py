@@ -11,7 +11,6 @@ for piece in Configs.pieces:
         history = ZabbixData().gethistory(piece)
         gb.line(history,piece)
         gb.push(piece)
-    #    continue
     #if kind == 'Monitoring':
     #    history = ZabbixData().gethistory(piece)
     #    gb.monitoring(history,piece)

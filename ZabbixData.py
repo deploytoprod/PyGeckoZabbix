@@ -51,6 +51,8 @@ class ZabbixData:
                                                output='extend',
                                                expandDescription=1,
                                                expandData='host',
-                                               withLastEventUnacknowledged=1,)
-        #print unack_triggers
+                                               withLastEventUnacknowledged=1,
+                                               sortfield='priority',sortorder='DESC'
+                                               )
+        print unack_triggers
         return unack_triggers

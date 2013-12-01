@@ -1,4 +1,3 @@
-Configs.py
-venv/*
+venv
 *.pyc
 .idea

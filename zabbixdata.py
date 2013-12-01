@@ -36,10 +36,10 @@ class ZabbixData:
         if kind == 'Monitoring':
             httptestid = item['httptestid']
             history = self.zapi.webcheck.get(httptestids=httptestid,
-                                            output='extend',
-                                            limit='6',
-                                            selectSteps='extend',
-                                            webstepid=0,)
+                                             output='extend',
+                                             limit='6',
+                                             selectSteps='extend',
+                                             webstepid=0,)
 
         return history
 

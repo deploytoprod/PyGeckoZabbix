@@ -55,3 +55,6 @@ def calculate_age(unixtimestamp):
 
     agesec = datetime.timedelta(seconds=seconds)
     return agesec
+
+def sec_to_ms(sec):
+    return sec*1000

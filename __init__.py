@@ -11,10 +11,10 @@ for piece in configs.pieces:
         history = ZabbixData().gethistory(piece)
         gb.line(history,piece)
         gb.push(piece)
-    #if kind == 'Monitoring':
-    #    history = ZabbixData().gethistory(piece)
-    #    gb.monitoring(history,piece)
-    #    gb.push(piece)
+    if kind == 'Monitoring':
+        webmondata = ZabbixData().gethistory(piece)
+        gb.monitoring(webmondata,piece)
+        gb.push(piece)
     if kind == "Triggers":
         triggers = ZabbixData().getunacktriggers(piece)
         gb.triggerlist(triggers,piece)

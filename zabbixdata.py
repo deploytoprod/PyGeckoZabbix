@@ -13,38 +13,70 @@ class ZabbixData:
         self.zapi = ZabbixAPI(configs.zabbixapiurl)
         self.zapi.login(configs.zabbixapilogin, configs.zabbixapipasswd)
         self.time_till = time.mktime(datetime.now().timetuple())
-        self.time_from = self.time_till - 60 * 60 * 2  # 2 hours
+        self.time_from = self.time_till - 60 * 60 * 4  # 2 hours
 
     def gethistory(self, item):
-        kind =  item['kind']
+        kind = item['kind']
 
         if kind == 'Line':
             id = item['zid']
             history = self.zapi.history.get(itemids=id,
-                                            time_from=self.time_from,
+                                            time_from=0,
                                             time_till=self.time_till,
                                             output='extend',
-                                            limit='120',)
-            if not len(history):
-                history = self.zapi.history.get(itemids=id,
-                                                time_from=self.time_from,
-                                                time_till=self.time_till,
-                                                output='extend',
-                                                limit='120',
-                                                history=0,)
+                                            sortfield='clock',
+                                            sortorder='DESC',
+                                            limit='25',
+                                            )
+
+            history = history[::-1]  # I'm reversing the list because in order to get the last measures I have to
+                                     # query ordering by clock desc, so the list comes with the first value as the latest
+                                     # to generate the line in correct order, I must reverse the values...
 
         if kind == 'Monitoring':
-            httptestid = item['httptestid']
-            history = self.zapi.webcheck.get(httptestids=httptestid,
-                                             output='extend',
-                                             limit='6',
-                                             selectSteps='extend',
-                                             webstepid=0,)
+            history = {}
+            httpcodezid = item['httpcodezid']
+            httptimezid = item['httptimezid']
+            httplasterrorzid = item['httplasterrorzid']
 
+            httpcoderesponse = self.zapi.history.get(itemids=httpcodezid,
+                                            time_from=0,
+                                            time_till=self.time_till,
+                                            output='extend',
+                                            history=3,
+                                            sortfield='clock',
+                                            sortorder='DESC',
+                                            limit='1',
+                                            )
+            history['httpcode'] = httpcoderesponse[0]['value']
+
+            httptimeresponse = self.zapi.history.get(itemids=httptimezid,
+                                            time_from=0,
+                                            time_till=self.time_till,
+                                            output='extend',
+                                            history=0,
+                                            sortfield='clock',
+                                            sortorder='DESC',
+                                            limit='1',
+                                            )
+            history['httptimeresponse'] = httptimeresponse[0]['value']
+
+            httplasterrorresponse = self.zapi.history.get(itemids=httplasterrorzid,
+                                            time_from=0,  # I want them all...
+                                            time_till=self.time_till,
+                                            output='extend',
+                                            history=1,
+                                            sortfield='clock',
+                                            sortorder='DESC',
+                                            limit='1',
+                                            )
+            history['httplasterrorresponse'] = httplasterrorresponse[0]['clock']
+
+        #print history
         return history
 
     def getunacktriggers(self, item):
-        unack_triggers = self.zapi.trigger.get(only_true=1,
+        triggers = self.zapi.trigger.get(only_true=1,
                                                skipDependent=1,
                                                monitored=1,
                                                active=1,
@@ -52,7 +84,8 @@ class ZabbixData:
                                                expandDescription=1,
                                                expandData='host',
                                                withLastEventUnacknowledged=1,
-                                               sortfield='priority',sortorder='DESC'
+                                               sortfield='priority',
+                                               sortorder='DESC'
                                                )
-        print unack_triggers
-        return unack_triggers
+        #print triggers
+        return triggers

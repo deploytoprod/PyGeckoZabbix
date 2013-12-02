@@ -22,7 +22,7 @@ class Geckoboard:
         points = []
         data = {}
         settings = {}
-        settings['colour'] = '00ff00'  # Default color line
+        settings['colour'] = '78ab49'  # Default color line
 
         for i in zhist:
             points.append(i['value'])
@@ -41,9 +41,22 @@ class Geckoboard:
         self.widgetdata['data'] = data
         #print self.widgetdata
 
-    #def monitoring(self, item):
-    #    url = item['uri']
-    #    strexpected = item['strexpected']
+    def monitoring(self, zhist, widgetdefinitions):
+        data = {}
+        httpcode = zhist['httpcode']
+        httptimeresponsems = sec_to_ms(float(zhist['httptimeresponse']))
+        httplasterrorresponse = calculate_age(zhist['httplasterrorresponse'])
+
+        if int(httpcode) == 200:
+            data['status'] = 'Up'
+        else:
+            data['status'] = 'Down'
+
+        data['downTime'] = str(httplasterrorresponse)
+        data['responseTime'] = str(httptimeresponsems)
+
+        self.widgetdata['data'] = data
+        print self.widgetdata
 
 
     def triggerlist(self, ztriggers, widgetdefinitions):

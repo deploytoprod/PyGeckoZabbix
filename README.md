@@ -21,4 +21,4 @@ Version History
 ---------------
 
 ##### 20131201
-  * Initial public release.
+  * Initial public release supporting widgets of 3 different kinds: Line, Monitoring and Trigger.

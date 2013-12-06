@@ -22,7 +22,7 @@ class Geckoboard:
         points = []
         data = {}
         settings = {}
-        settings['colour'] = '78ab49'  # Default color line
+        settings['colour'] = '78ab49'  # Default color line: light green
 
         for i in zhist:
             points.append(i['value'])
@@ -30,8 +30,32 @@ class Geckoboard:
             #                        fromtimestamp(int(point['clock'])).
             #                        strftime("%x %X"), point['value']))
 
-        if (float(max(points)) > maxtrigger) or (float(min(points)) < mintrigger):
-            settings['colour'] = colortrigger
+        print widgetdefinitions['name']
+        print (min(points))
+        print (max(points))
+        if unit == 'bps':
+            points = map(int,points)
+        if unit == '%':
+            points = map(float,points)
+        print points
+
+        try:
+            widgetdefinitions['percenttrigger']
+        except KeyError:
+            if (max(points) > maxtrigger) or (min(points) < mintrigger) or (min(points) == max(points)):
+                settings['colour'] = colortrigger
+        else:
+            if unit != '%':
+                percentdiff  = 100.0 - (float((min(points))/float(max(points))) * 100)
+
+            else:
+                percentdiff = max(points) - min(points)
+
+            if float(widgetdefinitions['percenttrigger'] <= percentdiff) or (float(min(points)) == float(max(points))):
+                settings['colour'] = colortrigger
+
+            print percentdiff
+            print colortrigger
 
         settings['axisy'] = [formatunit(float(min(points)),unit),
                              formatunit(float(max(points)),unit)]
@@ -39,7 +63,7 @@ class Geckoboard:
         data['item'] = points
         data['settings'] = settings
         self.widgetdata['data'] = data
-        #print self.widgetdata
+        print self.widgetdata
 
     def monitoring(self, zhist, widgetdefinitions):
         data = {}
@@ -47,16 +71,24 @@ class Geckoboard:
         httptimeresponsems = sec_to_ms(float(zhist['httptimeresponse']))
         httplasterrorresponse = calculate_age(zhist['httplasterrorresponse'])
 
-        if int(httpcode) == 200:
-            data['status'] = 'Up'
+        try:
+            widgetdefinitions['httpexpectedcode']
+        except KeyError:
+            if int(httpcode) == 200:
+                data['status'] = 'Up'
+            else:
+                data['status'] = 'Down'
         else:
-            data['status'] = 'Down'
+            if int(httpcode) == widgetdefinitions['httpexpectedcode']:
+                data['status'] = 'Up'
+            else:
+                data['status'] = 'Down'
 
         data['downTime'] = str(httplasterrorresponse)
         data['responseTime'] = str(httptimeresponsems)
 
         self.widgetdata['data'] = data
-        print self.widgetdata
+        #print self.widgetdata
 
 
     def triggerlist(self, ztriggers, widgetdefinitions):

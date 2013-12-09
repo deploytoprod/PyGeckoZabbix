@@ -95,9 +95,9 @@ class ZabbixData:
                                          expandData='host',
                                          withLastEventUnacknowledged=1,
                                          sortfield='priority',
-                                         sortorder='DESC'
+                                         sortorder='DESC',
+                                         filter={'value': 1},
                                         )
-        #print triggers
         return triggers
 
     def getgraph(self, item):

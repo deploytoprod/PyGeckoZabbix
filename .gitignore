@@ -2,5 +2,3 @@ configs.py
 *.pyc
 .idea
 .DS_Store
-configs.py
-

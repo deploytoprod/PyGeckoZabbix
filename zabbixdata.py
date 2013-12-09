@@ -13,7 +13,6 @@ class ZabbixData:
         self.zapi = ZabbixAPI(configs.zabbixapiurl)
         self.zapi.login(configs.zabbixapilogin, configs.zabbixapipasswd)
         self.time_till = time.mktime(datetime.now().timetuple())
-        self.time_from = self.time_till - 60 * 60 * 4  # 2 hours
 
     def gethistory(self, item):
         kind = item['kind']

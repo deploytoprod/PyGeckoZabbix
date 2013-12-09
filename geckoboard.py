@@ -121,7 +121,7 @@ class Geckoboard:
             data = []
             listitem = {}
 
-            title['text'] = 'Good job, infra! Nothing is triggered on Zabbix :-)'
+            title['text'] = configs.notriggersmessage
             title['highlight'] = 'True'
             listitem['title'] = title
 

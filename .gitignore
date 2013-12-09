@@ -1,4 +1,3 @@
-configs.py
 *.pyc
 .idea
 .DS_Store

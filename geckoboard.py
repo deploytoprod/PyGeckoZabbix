@@ -90,6 +90,12 @@ class Geckoboard:
         self.widgetdata['data'] = data
         #print self.widgetdata
 
+    def text(self, values):
+        data = {}
+        data['item'] = values
+        self.widgetdata['data'] = data
+        print self.widgetdata
+
 
     def triggerlist(self, ztriggers, widgetdefinitions):
         data = []

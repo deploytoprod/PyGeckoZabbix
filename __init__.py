@@ -1,5 +1,6 @@
 from zabbixdata import *
 from geckoboard import *
+from otherdata import *
 import configs
 from time import sleep
 
@@ -20,6 +21,10 @@ while True:
         if kind == "Triggers":
             triggers = ZabbixData().getunacktriggers()
             gb.triggerlist(triggers,piece)
+            gb.push(piece)
+        if kind == "Other":
+            now = OtherData().now()
+            gb.text(now)
             gb.push(piece)
 
     sleep(60)

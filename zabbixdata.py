@@ -98,7 +98,3 @@ class ZabbixData:
                                          filter={'value': 1},
                                         )
         return triggers
-
-    def getgraph(self, item):
-        graph = self.zapi.graph.get
-        return

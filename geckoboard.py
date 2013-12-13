@@ -31,13 +31,12 @@ class Geckoboard:
             #                        strftime("%x %X"), point['value']))
 
         print widgetdefinitions['name']
-        print (min(points))
-        print (max(points))
+
         if unit == 'bps':
             points = map(int,points)
         if unit == '%':
             points = map(float,points)
-        print points
+        #print points
 
         try:
             widgetdefinitions['percenttrigger']
@@ -53,9 +52,6 @@ class Geckoboard:
 
             if float(widgetdefinitions['percenttrigger'] <= percentdiff) or (float(min(points)) == float(max(points))):
                 settings['colour'] = colortrigger
-
-            print percentdiff
-            print colortrigger
 
         settings['axisy'] = [formatunit(float(min(points)),unit),
                              formatunit(float(max(points)),unit)]
@@ -88,7 +84,8 @@ class Geckoboard:
         data['responseTime'] = str(httptimeresponsems)
 
         self.widgetdata['data'] = data
-        #print self.widgetdata
+        print widgetdefinitions['name']
+        print self.widgetdata
 
     def text(self, values):
         data = {}

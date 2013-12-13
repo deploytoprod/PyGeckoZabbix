@@ -1,17 +1,20 @@
 def formatunit(value, unit):
     if unit == 'bps':
-        return bit_to_humanreadable(value)
+        return bit_to_humanreadable(value, unit)
     elif unit == '%':
         return percent(value)
 
 def percent(num):
     return str(round(num))+'%'
 
-def bit_to_humanreadable(num):
+def bit_to_humanreadable(num, type):
     num /= 8  # I receive bit, and first I need to get rid of this, and transform in Byte
     for x in ['bytes','KB','MB','GB','TB']:
         if num < 1024.0:
-            return "%3.2f %s/s" % (num, x)
+            if type == 'bps':  # Mbps is more used than MB/s to represent bandwidth...
+                return "%3.1f %sps" % (num*8, x.title())
+            else:
+                return "%3.2f %s/s" % (num, x)
         num /= 1024.0
 
 def priority_to_humanreadable(priority):

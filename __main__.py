@@ -27,4 +27,4 @@ while True:
             gb.text(now)
             gb.push(piece)
 
-    sleep(60)
+    sleep(120)

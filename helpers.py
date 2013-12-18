@@ -8,13 +8,9 @@ def percent(num):
     return str(round(num))+'%'
 
 def bit_to_humanreadable(num, type):
-    num /= 8  # I receive bit, and first I need to get rid of this, and transform in Byte
-    for x in ['bytes','KB','MB','GB','TB']:
+    for x in ['bits', 'Kb', 'Mb', 'Gb', 'Tb']:
         if num < 1024.0:
-            if type == 'bps':  # Mbps is more used than MB/s to represent bandwidth...
-                return "%3.1f %sps" % (num*8, x.title())
-            else:
-                return "%3.2f %s/s" % (num, x)
+            return "%3.2f %sps" % (num, x)
         num /= 1024.0
 
 def priority_to_humanreadable(priority):

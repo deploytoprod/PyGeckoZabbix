@@ -1,4 +1,5 @@
-PyGeckoZabbix
+PyGeckoZabbix ![alt text](https://raw.githubusercontent.com/bobeirasa/PyGeckoZabbix/master/images/PyGeckoZabbix.png "PyGeckoZabbix")
+
 =============
 
 This project is intended to get some data from [Zabbix](http://www.zabbix.com) and post into [Geckoboard](http://www.geckoboard.com)

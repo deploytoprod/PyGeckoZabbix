@@ -1,4 +1,4 @@
-PyGeckoZabbix ![alt text](https://raw.githubusercontent.com/bobeirasa/PyGeckoZabbix/master/images/PyGeckoZabbix.png "PyGeckoZabbix")
+![alt text](https://raw.githubusercontent.com/bobeirasa/PyGeckoZabbix/master/images/PyGeckoZabbix.png "PyGeckoZabbix")
 
 =============
 

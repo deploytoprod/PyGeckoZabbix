@@ -24,7 +24,7 @@ class ZabbixData:
             history = 3  # Default value
             if unit == '%':
                 history = 0  # On Zabbix API, 0 means to query looking for 'float' result. Reference: http://bit.ly/1gI1l63
-            if unit == 'bps':
+            if unit == 'bps' or unit == 'int':
                 history = 3  # On Zabbix API, 3 means to query looking for 'int' result. Reference: http://bit.ly/1gI1l63
 
             history = self.zapi.history.get(itemids=id,
@@ -81,7 +81,7 @@ class ZabbixData:
                                                          )
             history['httplasterrorresponse'] = httplasterrorresponse[0]['clock']
 
-        #print history
+        print history
         return history
 
     def getunacktriggers(self):

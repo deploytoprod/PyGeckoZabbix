@@ -1,6 +1,8 @@
 def formatunit(value, unit):
     if unit == 'bps':
         return bit_to_humanreadable(value, unit)
+    elif unit == 'int':
+        return int_to_smallformat(value, unit)
     elif unit == '%':
         return percent(value)
 
@@ -12,6 +14,13 @@ def bit_to_humanreadable(num, type):
         if num < 1024.0:
             return "%3.2f %sps" % (num, x)
         num /= 1024.0
+
+
+def int_to_smallformat(num, type):
+    for x in ['', 'K', 'M', 'G', 'T']:
+        if num < 1000.0:
+            return "%3.1f %s" % (num, x)
+        num /= 1000.0
 
 def priority_to_humanreadable(priority):
     notclassified='#ffffff'

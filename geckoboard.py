@@ -32,11 +32,11 @@ class Geckoboard:
 
         print widgetdefinitions['name']
 
-        if unit == 'bps':
+        if unit == 'bps' or unit == 'int':
             points = map(int,points)
         if unit == '%':
             points = map(float,points)
-        #print points
+        print points
 
         try:
             widgetdefinitions['percenttrigger']

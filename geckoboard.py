@@ -135,7 +135,11 @@ class Geckoboard:
 
     def push(self, widgetdefinitions):
         wk = widgetdefinitions['widget_key']
-        response = requests.post('https://push.geckoboard.com/v1/send/' + wk,
+        if type(wk) is not list:
+            wk = [ wk ]
+
+        for key in wk:
+            response = requests.post('https://push.geckoboard.com/v1/send/' + key,
                                  data=json.dumps(self.widgetdata),
                                  headers=self.headers)
         print response.text

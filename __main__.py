@@ -18,7 +18,7 @@ while True:
                 gb.monitoring(webmondata,piece)
                 gb.push(piece)
             if kind == "Triggers":
-                triggers = ZabbixData().getunacktriggers()
+                triggers = ZabbixData().getunacktriggers(piece)
                 gb.triggerlist(triggers,piece)
                 gb.push(piece)
             if kind == "Other":

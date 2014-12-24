@@ -84,7 +84,13 @@ class ZabbixData:
         print history
         return history
 
-    def getunacktriggers(self):
+    def getunacktriggers(self,item):
+        if 'filter' in item:
+            if 'value' not in item['filter']:
+                item['filter']['value'] = 1
+        else:
+            item['filter'] = { 'value':1 }
+
         triggers = self.zapi.trigger.get(only_true=1,
                                          skipDependent=1,
                                          monitored=1,
@@ -95,6 +101,6 @@ class ZabbixData:
                                          withLastEventUnacknowledged=1,
                                          sortfield='priority',
                                          sortorder='DESC',
-                                         filter={'value': 1},
+                                         filter=item['filter'],
                                         )
         return triggers
